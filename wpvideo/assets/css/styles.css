@@ -1,0 +1,25 @@
+@media (min-width: 768px) {
+  video {
+    width: 685px;
+  }
+}
+
+@media (min-width: 768px) {
+  .text-center.video-container {
+    height: 425px;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+    height: 100px;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn:not(:disabled):not(.disabled) {
+    font-size: 35px;
+  }
+}
+
