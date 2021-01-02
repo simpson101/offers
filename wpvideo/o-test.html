@@ -1,0 +1,116 @@
+
+<html>
+  <head>
+    <title> The Desktop Page Title</title>
+   <script>(function() {
+    var pa_Start = 3000;
+    var pa_DoOnce = 0;
+    var pa_DoPulse = 1;
+    var pa_PulseDelay = 1000;
+    var pa_DoSound = 1;
+    var pa_SoundTotal = 3;
+    var pa_SoundPulseDelay = 30000;
+    var pa_SoundVolume = 0.8;
+    var pa_Message = '(1) Private Discount';
+    var pa_RedirectUrl = '';
+    var pa_SoundFile = 'https://notificationsounds.com/soundfiles/8eefcfdf5990e441f0fb6f3fad709e21/file-sounds-1100-open-ended.mp3';
+    var isPaused = false;
+    var pa_PageTitle = document.title;
+    var pa_Cnt = 0;
+    var pa_PulseId = 0;
+    var pa_SoundPulseId = 0;
+    var pa_SoundCnt = 0;
+    if (pa_DoSound == 1) {
+        var pa_SoundElement = document.createElement('audio');
+        pa_SoundElement.setAttribute('src', pa_SoundFile);
+    }
+    var hidden, visibilityChange;
+    if (typeof document.hidden !== "undefined") {
+        hidden = "hidden";
+        visibilityChange = "visibilitychange";
+    } else if (typeof document.mozHidden !== "undefined") {
+        hidden = "mozHidden";
+        visibilityChange = "mozvisibilitychange";
+    } else if (typeof document.msHidden !== "undefined") {
+        hidden = "msHidden";
+        visibilityChange = "msvisibilitychange";
+    } else if (typeof document.webkitHidden !== "undefined") {
+        hidden = "webkitHidden";
+        visibilityChange = "webkitvisibilitychange";
+    }
+    if (typeof document.addEventListener !== "undefined" && typeof hidden !== "undefined") {
+        document.addEventListener(visibilityChange, handleVisibilityChange, false);
+    }
+
+    function handleVisibilityChange() {
+        if (document[hidden]) {
+            if ((pa_DoOnce == 0) | ((pa_DoOnce == 1) && (pa_Cnt == 0))) {
+                setTimeout(function() {
+                    if (pa_DoPulse = 1) {
+                        pa_PulseId = setInterval(function() {
+                            if (!isPaused) {
+                                if (document.title == pa_PageTitle) {
+                                    document.title = pa_Message;
+                                } else {
+                                    document.title = pa_PageTitle;
+                                }
+                            }
+                        }, pa_PulseDelay);
+                    } else {
+                        document.title = pa_Message;
+                    }
+                    if (pa_DoSound == 1) {
+                        pa_SoundPulseId = setInterval(function() {
+                            if (!isPaused) doSound();
+                        }, pa_SoundPulseDelay);
+                    }
+                    pa_Cnt = pa_Cnt + 1;
+                }, pa_Start);
+            }
+        } else {
+            pa_SoundCnt = 0;
+            if (pa_PulseId > 0) clearTimeout(pa_PulseId);
+            if (pa_SoundPulseId > 0) clearTimeout(pa_SoundPulseId);
+            document.title = pa_PageTitle;
+            if (pa_RedirectUrl != '') {
+                window.document.location = pa_RedirectUrl;
+            }
+        }
+    }
+
+    function doSound() {
+        pa_SoundElement.volume = pa_SoundVolume;
+        pa_SoundElement.play();
+        pa_SoundCnt = pa_SoundCnt + 1;
+        if ((pa_SoundTotal > 0) && (pa_SoundCnt >= pa_SoundTotal)) {
+            clearTimeout(pa_SoundPulseId);
+        }
+        isPaused = true;
+        QuickPulsate(4, 250);
+    }
+
+    function QuickPulsate(count, interval) {
+        if (count == 0) {
+            isPaused = false;
+            return;
+        }
+        document.title = pa_Message;
+        setTimeout(function() {
+            document.title = '...';
+        }, interval);
+        setTimeout(function() {
+            QuickPulsate(count - 1, interval)
+        }, interval * 2);
+    }
+})(); </script>
+   
+  </head>
+  <body>
+                 <h1>This is a Desk top Test Page</h1>
+                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                 
+  </body>
+
+    
+    
+</html>
